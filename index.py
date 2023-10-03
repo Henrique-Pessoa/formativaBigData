@@ -3,7 +3,7 @@ import numpy as np
 import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score, recall_score, precision_score, confusion_matrix
+from sklearn.metrics import recall_score, precision_score,f1_score
 from sklearn.tree import plot_tree
 import matplotlib.pyplot as plt
 
@@ -39,6 +39,14 @@ for produto in produtos:
     y_teste = dados_teste_produto['purchased']
     
     y_pred = modelo.predict(X_teste)
+    
+    precision = precision_score(y_teste, y_pred)
+    recall = recall_score(y_teste, y_pred)
+    f1 = f1_score(y_teste, y_pred)
+    print(f"PRODUCT: {produto}")
+    print("Precision: %f" % precision)
+    print("recall: %f" % recall)
+    print("F1: %f" % f1)
 
     plt.figure(figsize=(12, 8))
     plot_tree(modelo, filled=True, feature_names=['rating', 'rating_count'], class_names=['Not Purchased', 'Purchased'])
